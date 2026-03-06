@@ -53,7 +53,34 @@
    if(indiceDoUsuario === -1) {
       return res.status(404).json({ mensagem: 'Usuário não encontrado!'});
    }
+
+
+   usuarios[indiceDoUsuario].nome = nome;
+   usuarios[indiceDoUsuario].email = email;
+   usuarios[indiceDoUsuario].senha = senha;
+
+   res.json({ 
+   mensagem: 'Usuário atualizado com sucesso!', 
+   usuario: usuarios[indiceDoUsuario]
+   })
 })
+
+app.delete('/usuarios/:id', (req, res) => {
+   const idDoUsuario = parseInt(req.params.id);
+
+   const indiceDoUsuario = usuarios.findIndex(
+      usuario => usuario.id === idDoUsuario
+   );
+
+   if (indiceDoUsuario === -1) {
+      return res.status(404).json({ mensagem: 'Usuário não encontrado!'})
+   }
+
+   usuarios.splice(indiceDoUsuario, 1);
+
+   res.json({ mensagem: 'Usuário removido com sucesso!'})
+})
+
 
  app.listen(porta, () => {
     console.log(`Servidor rodando com sucesso na porta ${porta}.`);
