@@ -41,6 +41,20 @@
  });
  });
 
+ app.put('/usuarios/:id', (req,res) => {
+   const idRecebido = req.params.id;
+   
+   const idDoUsuario = parseInt(idRecebido);
+
+   const { nome, email, senha} = req.body;
+
+   const indiceDoUsuario = usuarios.findIndex(usuario => usuario.id === idDoUsuario);
+
+   if(indiceDoUsuario === -1) {
+      return res.status(404).json({ mensagem: 'Usuário não encontrado!'});
+   }
+})
+
  app.listen(porta, () => {
     console.log(`Servidor rodando com sucesso na porta ${porta}.`);
  });
